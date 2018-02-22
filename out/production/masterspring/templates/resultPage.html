@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head lang="en">
+    <meta charset="UTF-8"/>
     <title>Hello twitter</title>
 </head>
 <body>
-    <span th:text="|Hello twitter LHN|">Hello twitter</span>
+    <ul>
+        <li th:each="tweet : ${tweets}" th:text="${tweet}">Some tweet</li>
+    </ul>
+
 </body>
 </html>
