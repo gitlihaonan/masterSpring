@@ -1,4 +1,4 @@
-package masterspring.config;
+package masterspring.confing;
 
 import masterspring.date.USLocalDateFormatter;
 import org.springframework.context.annotation.Bean;
