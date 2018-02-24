@@ -21,7 +21,7 @@ public class SearchController {
 
     @RequestMapping("/search/{searchType}")
     public ModelAndView search(@PathVariable String searchType, @MatrixVariable List<String> keywords) {
-        List<Tweet> tweets = twitterService.search(searchType, keywords);
+        List<LightTweet> tweets = twitterService.search(searchType, keywords);
         ModelAndView modelAndView = new ModelAndView("resultPage");
         modelAndView.addObject("tweets", tweets);
         modelAndView.addObject("search", String.join(",", keywords));
