@@ -1,7 +1,6 @@
 package masterspring.profile;
 
 import masterspring.date.USLocalDateFormatter;
-import masterspring.profile.ProfileForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,6 +18,19 @@ import java.util.Locale;
 @Controller
 public class ProfileController {
 
+    private UserProfileSession userProfileSession;
+
+    // 构造函数注入
+    @Autowired
+    public ProfileController(UserProfileSession userProfileSession) {
+        this.userProfileSession = userProfileSession;
+    }
+
+    @ModelAttribute
+    public ProfileForm getProfileForm() {
+        return userProfileSession.toForm();
+    }
+
     @ModelAttribute("dateFormat")
     public String localeFormat(Locale locale) {
         return USLocalDateFormatter.getPattern(locale);
@@ -34,8 +46,8 @@ public class ProfileController {
         if (bindingResult.hasErrors()) {
             return "profile/profilePage";
         }
-        System.out.println("save ok" + profileForm);
-        return "redirect:/profile";
+        userProfileSession.saveForm(profileForm);
+        return "redirect:/search/mixed;keywords=" + String.join(",",profileForm.getTastes());
     }
 
     @RequestMapping(value = "/profile", params = {"addTaste"})
