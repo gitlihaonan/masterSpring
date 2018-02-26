@@ -22,7 +22,10 @@ public class UserApiController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> findAll() { return userRepository.findAll(); }
+    public List<User> findAll() {
+        System.out.println("## findAll : ");
+        return userRepository.findAll();
+    }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -36,7 +39,7 @@ public class UserApiController {
     }
 
     @RequestMapping(value = "/user/{email}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable String email, @  User user) throws EntityNotFoundException {
+    public ResponseEntity<User> updateUser(@PathVariable String email, @RequestBody User user) throws EntityNotFoundException {
         User saved = userRepository.update(email, user);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
